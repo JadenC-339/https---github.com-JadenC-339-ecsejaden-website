@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | My Personal Website</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* Light mode styles for gallery */
+    body.light-mode {
+      background: linear-gradient(135deg, #f9fafb 0%, #fef3c7 50%, #f9fafb 100%) !important;
+      color: #78350f !important;
+    }
+    
+    body.light-mode nav {
+      background: rgba(255, 255, 255, 0.9) !important;
+      border-color: rgba(234, 179, 8, 0.3) !important;
+    }
+    
+    body.light-mode .nav-link,
+    body.light-mode h1,
+    body.light-mode h2,
+    body.light-mode h3,
+    body.light-mode p,
+    body.light-mode span {
+      color: #78350f !important;
+    }
+    
+    body.light-mode .text-yellow-400,
+    body.light-mode .text-yellow-300,
+    body.light-mode .text-yellow-200,
+    body.light-mode .text-yellow-500 {
+      color: #92400e !important;
+    }
+    
+    body.light-mode .text-white {
+      color: #1f2937 !important;
+    }
+    
+    body.light-mode .text-gray-400,
+    body.light-mode .text-gray-300 {
+      color: #4b5563 !important;
+    }
+    
+    body.light-mode .bg-black\/80,
+    body.light-mode .bg-black\/95,
+    body.light-mode .bg-black\/50,
+    body.light-mode .bg-black {
+      background: rgba(255, 255, 255, 0.9) !important;
+    }
+    
+    body.light-mode .bg-gray-900,
+    body.light-mode .bg-gray-800 {
+      background: rgba(255, 255, 255, 0.95) !important;
+    }
+    
+    body.light-mode .border-yellow-400\/30,
+    body.light-mode .border-yellow-400\/20 {
+      border-color: rgba(234, 179, 8, 0.4) !important;
+    }
+    
+    body.light-mode .border-gray-700 {
+      border-color: rgba(209, 213, 219, 0.8) !important;
+    }
+    
+    body.light-mode #mobileMenu {
+      background: rgba(255, 255, 255, 0.95) !important;
+    }
+    
+    body.light-mode .theme-toggle-label {
+      background: rgba(255, 255, 255, 0.9) !important;
+      border-color: rgba(234, 179, 8, 0.4) !important;
+    }
+    
+    body.light-mode .gallery-item,
+    body.light-mode .relative.overflow-hidden {
+      background: rgba(255, 255, 255, 0.7) !important;
+    }
+    
+    body.light-mode footer {
+      background: rgba(255, 255, 255, 0.9) !important;
+      border-color: rgba(234, 179, 8, 0.3) !important;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 to-black text-yellow-400 transition duration-500 overflow-x-hidden">
+  <!-- Cursor Follower -->
+  <div class="cursor-follower fixed w-6 h-6 rounded-full bg-yellow-400 opacity-70 pointer-events-none z-50 transition-transform duration-200 hidden md:block"></div>
+
+  <!-- Theme Toggle -->
+  <div class="fixed top-4 right-4 z-50">
+    <label class="theme-toggle-label cursor-pointer flex items-center gap-2 bg-black/50 backdrop-blur-md px-3 py-2 rounded-full border border-yellow-400/30 hover:border-yellow-400/60 transition-all">
+      <input type="checkbox" id="themeToggle" class="hidden" />
+      <div class="w-12 h-6 bg-gray-700 rounded-full relative">
+        <div id="toggleThumb" class="absolute w-5 h-5 bg-yellow-400 rounded-full top-0.5 left-1 transition-transform duration-300"></div>
+      </div>
+      <span class="text-sm font-medium">Light</span>
+    </label>
+  </div>
+
+  <!-- Floating Navigation Dots -->
+  <div class="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 hidden md:block">
+    <div class="flex flex-col space-y-4">
+      <a href="#gallery-header" class="w-3 h-3 rounded-full bg-yellow-400 hover:scale-150 transition duration-300" data-section="gallery-header"></a>
+      <a href="#photo-gallery" class="w-3 h-3 rounded-full bg-gray-500 hover:scale-150 transition duration-300" data-section="photo-gallery"></a>
+      <a href="#design-gallery" class="w-3 h-3 rounded-full bg-gray-500 hover:scale-150 transition duration-300" data-section="design-gallery"></a>
+      
+    </div>
+  </div>
+
+  <!-- Draggable Icon Box -->
+  <div id="draggableIcon" class="cursor-move fixed top-24 left-6 w-16 h-16 rounded-xl bg-yellow-400 text-black flex items-center justify-center shadow-xl z-50 transition-all duration-300 hover:scale-110">
+    <img src="images/J.png" alt="Gallery Icon" class="w-7 h-7" />
+  </div>
+
+  <!-- Navbar -->
+  <nav class="bg-black/80 backdrop-blur-md shadow border-b border-yellow-400/30 sticky top-0 z-30 transition">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-yellow-400 hover:text-yellow-300 transition-colors duration-300">Jaden Coelho</h1>
+      
+      <!-- Mobile menu button -->
+      <button id="menuBtn" class="md:hidden focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+      
+      <!-- Desktop Navigation -->
+      <ul class="hidden md:flex space-x-6 font-medium">
+        <li><a href="index.html" class="hover:text-white relative nav-link">Home</a></li>
+        <li><a href="about.html" class="hover:text-white relative nav-link">About</a></li>
+        <li><a href="gallery.html" class="hover:text-white relative nav-link active">Gallery</a></li>
+        <li><a href="contact.html" class="hover:text-white relative nav-link">Contact</a></li>
+      </ul>
+    </div>
+    
+    <!-- Mobile Navigation -->
+    <div id="mobileMenu" class="hidden bg-black/95 w-full absolute top-16 left-0 py-4 border-b border-yellow-400/30">
+      <ul class="flex flex-col space-y-4 items-center">
+        <li><a href="index.html" class="text-lg hover:text-white">Home</a></li>
+        <li><a href="about.html" class="text-lg hover:text-white">About</a></li>
+        <li><a href="gallery.html" class="text-lg hover:text-white">Gallery</a></li>
+        <li><a href="contact.html" class="text-lg hover:text-white">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Gallery Header Section -->
+  <section id="gallery-header" class="py-24 px-6 flex items-center justify-center text-center relative overflow-hidden">
+    <!-- Animated background particles -->
+    <div class="particles absolute inset-0"></div>
+    
+    <div class="relative z-10 animate__animated animate__fadeIn max-w-4xl mx-auto">
+      <h2 class="text-5xl md:text-7xl font-extrabold mb-6 text-yellow-300 tracking-tight">
+        My Creative <span class="text-white">Gallery</span>
+      </h2>
+      
+      <p class="text-lg md:text-xl max-w-2xl mx-auto text-yellow-200 mb-8">
+        A collection of my best moments, favourite pictures and videos.
+      </p>
+      
+      <!-- Filter Buttons -->
+      <div class="flex flex-wrap justify-center gap-4 mb-10">
+        <button class="filter-btn active" data-filter="all">All Works</button>
+        <button class="filter-btn" data-filter="photography">Photography</button>
+        <button class="filter-btn" data-filter="design">Design</button>
+        
+      </div>
+      
+      <!-- Scroll Down Indicator -->
+      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photography Gallery -->
+  <section id="photo-gallery" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="section-title"><b>Photography</b></h2>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div class="gallery-item photography animate__animated" data-category="photography">
+          <div class="relative overflow-hidden group rounded-xl shadow-xl">
+            <img src="images/Photo1.jpg" alt="Photography 1" class="w-full h-64 object-cover transform transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/400x300?text=Photo+1'"/>
+            
+          </div>
+        </div>
+        
+        <div class="gallery-item photography animate__animated" data-category="photography">
+          <div class="relative overflow-hidden group rounded-xl shadow-xl">
+            <img src="images/Photo2.jpeg" alt="Photography 2" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/400x300?text=Photo+2'"/>
+            
+          </div>
+        </div>
+        
+        <div class="gallery-item photography animate__animated" data-category="photography">
+          <div class="relative overflow-hidden group rounded-xl shadow-xl">
+            <img src="images/Photo3.jpeg" alt="Photography 3" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/400x300?text=Photo+3'"/>
+            
+          </div>
+        </div>
+        
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Sports Gallery -->
+  <section id="design-gallery" class="py-24 px-6 bg-black/50">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="section-title"><b>Sports</b></h2>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        <div class="gallery-item design animate__animated" data-category="design">
+          <div class="relative overflow-hidden group rounded-xl shadow-xl">
+            <img src="images/Sports1.jpeg" alt="1" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400?text=Design+1'"/>
+           
+          </div>
+        </div>
+        
+        <div class="gallery-item design animate__animated" data-category="design">
+          <div class="relative overflow-hidden group rounded-xl shadow-xl">
+            <img src="images/Sports4.png" alt="2" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400?text=Design+2'"/>
+            
+          </div>
+        </div>
+        
+        <div class="gallery-item design animate__animated" data-category="design">
+          <div class="relative overflow-hidden group rounded-xl shadow-xl">
+          
+
+            
+            <img src="images/Sports2.jpeg"  alt="Design 3" class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/600x400?text=Design+3'"/>
+            
+            
+          </div>
+        </div>
+        
+        
+      </div>
+    </div>
+  </section>
+
+  
+
+  <!-- Image Lightbox -->
+  <div id="lightbox" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center">
+    <button id="closeLightbox" class="absolute top-6 right-6 text-white hover:text-yellow-400 transition">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+    
+    <button id="prevImage" class="absolute left-6 top-1/2 transform -translate-y-1/2 text-white hover:text-yellow-400 transition">
+      <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+      </svg>
+    </button>
+    
+    <img id="lightboxImage" class="max-h-[80vh] max-w-[80vw] rounded-lg" src="" alt="Lightbox Image" />
+    
+    <button id="nextImage" class="absolute right-6 top-1/2 transform -translate-y-1/2 text-white hover:text-yellow-400 transition">
+      <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+    </button>
+    
+    <div class="absolute bottom-6 left-0 right-0 text-center">
+      <h3 id="lightboxTitle" class="text-2xl font-bold text-yellow-400 mb-2"></h3>
+      <p id="lightboxDesc" class="text-white text-lg"></p>
+    </div>
+  </div>
+
+  <!-- Newsletter Popup -->
+  <div id="newsletter" class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 hidden">
+    <div class="bg-gray-900 p-8 rounded-2xl max-w-md mx-4 relative border border-yellow-400/30">
+      <button id="closeNewsletter" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      
+      <h3 class="text-2xl font-bold text-yellow-400 mb-4">Stay Updated</h3>
+      <p class="text-gray-300 mb-6">Subscribe to my newsletter to receive updates on new projects and insights.</p>
+      
+      <form class="space-y-4">
+        <input type="email" placeholder="Your Email Address" class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:border-yellow-400">
+        <button type="submit" class="w-full bg-yellow-400 text-black py-3 rounded-lg font-bold hover:bg-yellow-300 transition">Subscribe</button>
+      </form>
+    </div>
+  </div>
+
+  <footer class="bg-black border-t border-yellow-400/30 text-center py-8 text-sm text-yellow-500">
+    <div class="container mx-auto px-6">
+      <div class="flex justify-center space-x-6 mb-6">
+       
+        <a href="https://www.instagram.com/jaden_coelho/" class="hover:text-yellow-300 transition">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/jaden-coelho-96982635b/" class="hover:text-yellow-300 transition">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.586 7 2.476v6.759z"/>
+          </svg>
+          </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

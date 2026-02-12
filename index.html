@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home | Jaden Coelho</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+  
+  <style>
+    .cursor-follower {
+  pointer-events: none;
+}
+
+    :root {
+      --primary: #eab308;
+      --primary-dark: #ca8a04;
+      --accent: #fbbf24;
+      --bg-dark: #0a0a0a;
+      --bg-card: rgba(20, 20, 20, 0.8);
+    }
+    
+    body {
+      font-family: 'Outfit', sans-serif;
+      transition: all 0.5s ease;
+    }
+    
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+    }
+
+       /* Light mode styles */
+    body.light-mode {
+      background: linear-gradient(135deg, #f9fafb 0%, #fef3c7 50%, #f9fafb 100%) !important;
+      color: #78350f !important;
+    }
+    
+    body.light-mode nav {
+      background: rgba(255, 255, 255, 0.9) !important;
+      border-color: rgba(234, 179, 8, 0.3) !important;
+    }
+    
+    body.light-mode .nav-link,
+    body.light-mode h1,
+    body.light-mode h2,
+    body.light-mode h3,
+    body.light-mode p,
+    body.light-mode span {
+      color: #78350f !important;
+    }
+    
+    body.light-mode .text-yellow-400,
+    body.light-mode .text-yellow-300,
+    body.light-mode .text-yellow-200,
+    body.light-mode .text-yellow-500 {
+      color: #92400e !important;
+    }
+    
+    body.light-mode .text-white {
+      color: #1f2937 !important;
+    }
+    
+    body.light-mode .text-gray-400,
+    body.light-mode .text-gray-300 {
+      color: #4b5563 !important;
+    }
+    
+    body.light-mode .bg-black\/80,
+    body.light-mode .bg-black\/95,
+    body.light-mode .bg-black\/50,
+    body.light-mode .bg-black {
+      background: rgba(255, 255, 255, 0.9) !important;
+    }
+    
+    body.light-mode .bg-gray-900,
+    body.light-mode .bg-gray-800 {
+      background: rgba(255, 255, 255, 0.95) !important;
+    }
+    
+    body.light-mode .border-yellow-400\/30,
+    body.light-mode .border-yellow-400\/20 {
+      border-color: rgba(234, 179, 8, 0.4) !important;
+    }
+    
+    body.light-mode .border-gray-700 {
+      border-color: rgba(209, 213, 219, 0.8) !important;
+    }
+    
+    body.light-mode #mobileMenu {
+      background: rgba(255, 255, 255, 0.95) !important;
+    }
+    
+    body.light-mode .theme-toggle-label {
+      background: rgba(255, 255, 255, 0.9) !important;
+      border-color: rgba(234, 179, 8, 0.4) !important;
+    }
+    
+    body.light-mode .gallery-item,
+    body.light-mode .relative.overflow-hidden {
+      background: rgba(255, 255, 255, 0.7) !important;
+    }
+    
+    body.light-mode footer {
+      background: rgba(255, 255, 255, 0.9) !important;
+      border-color: rgba(234, 179, 8, 0.3) !important;
+    }
+    /* Animated gradient background */
+    .gradient-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0.3;
+      background: radial-gradient(circle at 20% 50%, rgba(234, 179, 8, 0.15) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 50%);
+      animation: gradientShift 15s ease infinite;
+    }
+    
+    @keyframes gradientShift {
+      0%, 100% { transform: scale(1) translate(0, 0); }
+      50% { transform: scale(1.1) translate(20px, -20px); }
+    }
+    
+    /* Floating particles */
+    .particle {
+      position: absolute;
+      background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.4;
+      animation: float 20s infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      25% { transform: translateY(-100px) translateX(50px); }
+      50% { transform: translateY(-50px) translateX(-30px); }
+      75% { transform: translateY(-150px) translateX(20px); }
+    }
+
+    /* Cursor follower */
+    .cursor-follower {
+      transition: transform 0.2s ease;
+      mix-blend-mode: difference;
+    }
+
+    /* Card hover effects */
+    .card-3d {
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    
+    .card-3d:hover {
+      transform: rotateY(2deg) rotateX(-2deg) translateY(-8px);
+    }
+
+    /* Skill progress animation */
+    .skill-progress {
+      animation: progressFill 2s ease-out forwards;
+      transform-origin: left;
+    }
+
+    @keyframes progressFill {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    /* Timeline styles */
+    .timeline-item {
+      position: relative;
+      padding-left: 40px;
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--primary), transparent);
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -6px;
+      top: 0;
+      width: 14px;
+      height: 14px;
+      background: var(--primary);
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(234, 179, 8, 0.6);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    /* Enhanced buttons */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #000;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 700;
+      display: inline-block;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      box-shadow: 0 10px 30px rgba(234, 179, 8, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(234, 179, 8, 0.5);
+    }
+
+    .btn-secondary {
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 700;
+      display: inline-block;
+      transition: all 0.4s ease;
+      background: transparent;
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: #000;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(234, 179, 8, 0.3);
+    }
+
+    /* Profile pic animation */
+    .profile-pic {
+      position: relative;
+      animation: floatProfile 6s ease-in-out infinite;
+    }
+
+    @keyframes floatProfile {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .profile-pic::after {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      z-index: -1;
+      opacity: 0.5;
+      animation: rotate 3s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-gray-900 to-black text-yellow-400 overflow-x-hidden">
+  <!-- Gradient Background -->
+  <div class="gradient-bg"></div>
+
+  <!-- Particles -->
+  <div class="particles fixed inset-0 pointer-events-none z-0">
+    <div class="particle" style="width: 100px; height: 100px; top: 10%; left: 10%; animation-delay: 0s;"></div>
+    <div class="particle" style="width: 150px; height: 150px; top: 60%; left: 70%; animation-delay: 3s;"></div>
+    <div class="particle" style="width: 80px; height: 80px; top: 80%; left: 20%; animation-delay: 6s;"></div>
+  </div>
+
+  <!-- Cursor Follower -->
+  <div class="cursor-follower fixed w-6 h-6 rounded-full bg-yellow-400 opacity-70 pointer-events-none z-50 hidden md:block"></div>
+
+  <!-- Theme Toggle -->
+  <div class="fixed top-4 right-4 z-50">
+    <label class="cursor-pointer flex items-center gap-2">
+      <input type="checkbox" id="themeToggle" class="hidden" />
+      <div class="w-12 h-6 bg-gray-700 rounded-full relative transition-colors duration-300">
+        <div id="toggleThumb" class="absolute w-5 h-5 bg-yellow-400 rounded-full top-0.5 left-1 transition-transform duration-300"></div>
+      </div>
+      <span class="text-sm font-medium">Light Mode</span>
+    </label>
+  </div>
+
+  <!-- Floating Navigation Dots -->
+  <div class="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 hidden md:block">
+    <div class="flex flex-col space-y-4">
+      <a href="#hero" class="nav-dot w-3 h-3 rounded-full bg-yellow-400 hover:scale-150 transition duration-300"></a>
+      <a href="#about-preview" class="nav-dot w-3 h-3 rounded-full bg-gray-500 hover:scale-150 transition duration-300"></a>
+      <a href="#skills" class="nav-dot w-3 h-3 rounded-full bg-gray-500 hover:scale-150 transition duration-300"></a>
+      <a href="#timeline" class="nav-dot w-3 h-3 rounded-full bg-gray-500 hover:scale-150 transition duration-300"></a>
+    </div>
+  </div>
+
+  <!-- Draggable Icon -->
+  <div id="draggableIcon" class="cursor-move fixed top-24 left-6 w-16 h-16 rounded-xl bg-yellow-400 text-black flex items-center justify-center shadow-xl z-50 transition-all duration-300 hover:scale-110">
+    <img src="images/J.png" alt="Home Icon" class="w-7 h-7" onerror="this.innerHTML='<svg class=\'w-8 h-8\' fill=\'currentColor\' viewBox=\'0 0 20 20\'><path d=\'M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z\'/></svg>'" />
+  </div>
+
+  <!-- Navbar -->
+  <nav class="bg-black/80 backdrop-blur-md shadow border-b border-yellow-400/30 sticky top-0 z-30 relative">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-yellow-400 hover:text-yellow-300 transition-colors duration-300">Jaden Coelho</h1>
+      
+      <button id="menuBtn" class="md:hidden focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+      
+      <ul class="hidden md:flex space-x-6 font-medium">
+        <li><a href="index.html" class="hover:text-white relative nav-link transition-colors duration-300">Home</a></li>
+        <li><a href="about.html" class="hover:text-white relative nav-link transition-colors duration-300">About</a></li>
+        <li><a href="gallery.html" class="hover:text-white relative nav-link transition-colors duration-300">Gallery</a></li>
+        <li><a href="contact.html" class="hover:text-white relative nav-link transition-colors duration-300">Contact</a></li>
+      </ul>
+    </div>
+    
+    <div id="mobileMenu" class="hidden bg-black/95 w-full absolute top-16 left-0 py-4 border-b border-yellow-400/30">
+      <ul class="flex flex-col space-y-4 items-center">
+        <li><a href="index.html" class="text-lg hover:text-white">Home</a></li>
+        <li><a href="about.html" class="text-lg hover:text-white">About</a></li>
+        <li><a href="gallery.html" class="text-lg hover:text-white">Gallery</a></li>
+        <li><a href="contact.html" class="text-lg hover:text-white">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="min-h-screen flex items-center justify-center text-center px-6 relative">
+    <div class="relative z-10 max-w-5xl mx-auto">
+      <div class="profile-pic mx-auto w-40 h-40 rounded-full overflow-hidden mb-8 border-4 border-yellow-400 shadow-lg shadow-yellow-400/20">
+        <img src="images/Profile1.png" alt="Jaden Coelho" class="w-full h-full object-cover" onerror="this.src='https://ui-avatars.com/api/?name=Jaden+Coelho&size=400&background=eab308&color=000'" />
+      </div>
+      
+      <h2 class="text-5xl md:text-7xl font-extrabold mb-6 text-yellow-300 tracking-tight">
+        <span class="text-white">Welcome to</span> My World
+      </h2>
+      
+      <p class="text-lg md:text-xl max-w-2xl mx-auto text-yellow-200 mb-8">
+        I'm <span class="text-white font-bold">Jaden Coelho</span> — creative, curious, and passionate. 
+        Explore my world of <span id="typewriter" class="text-yellow-400 font-bold"></span>
+      </p>
+      
+      <div class="mt-10 flex flex-wrap justify-center gap-4">
+        <a href="about.html" class="btn-primary">Learn More About Me</a>
+        <a href="contact.html" class="btn-secondary">Get In Touch</a>
+      </div>
+      
+      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Preview -->
+  <section id="about-preview" class="py-24 px-6 relative">
+    <div class="max-w-6xl mx-auto relative z-10">
+      <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">
+        About <span class="text-yellow-300">Me</span>
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="card-3d about-image rounded-2xl overflow-hidden shadow-xl">
+          <img src="assets/about-me.jpg" alt="About Me" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop'" />
+        </div>
+        
+        <div class="space-y-6">
+          <p class="text-lg leading-relaxed">
+            Hello! I'm <span class="text-yellow-300 font-bold">Jaden Coelho</span>, a passionate 
+            student with a love for technology, innovation and design. My journey started with 
+            a simple curiosity about how things work, which has evolved into a 
+            lifelong pursuit of knowledge and creativity.
+          </p>
+          
+          <p class="text-lg leading-relaxed">
+            When I'm not working on exciting projects, you'll find me playing sports, video games, drawing, writing poems or diving into a good book.
+          </p>
+          
+          <div class="pt-4">
+            <a href="about.html" class="btn-primary">Read My Full Story</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="py-24 px-6 bg-black/50 relative">
+    <div class="max-w-6xl mx-auto relative z-10">
+      <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">
+        My <span class="text-yellow-300">Skills</span>
+      </h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="card-3d bg-gray-800/50 backdrop-blur-xl p-8 rounded-2xl border border-yellow-400/30 text-center shadow-xl hover:border-yellow-400 transition-all duration-300">
+          <div class="mb-4 text-yellow-400">
+            <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Design</h3>
+          <div class="w-full bg-gray-700 rounded-full h-2 mt-4">
+            <div class="skill-progress bg-gradient-to-r from-yellow-400 to-yellow-600 h-2 rounded-full" style="width: 85%;"></div>
+          </div>
+        </div>
+        
+        <div class="card-3d bg-gray-800/50 backdrop-blur-xl p-8 rounded-2xl border border-yellow-400/30 text-center shadow-xl hover:border-yellow-400 transition-all duration-300">
+          <div class="mb-4 text-yellow-400">
+            <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Development</h3>
+          <div class="w-full bg-gray-700 rounded-full h-2 mt-4">
+            <div class="skill-progress bg-gradient-to-r from-yellow-400 to-yellow-600 h-2 rounded-full" style="width: 90%;"></div>
+          </div>
+        </div>
+        
+        <div class="card-3d bg-gray-800/50 backdrop-blur-xl p-8 rounded-2xl border border-yellow-400/30 text-center shadow-xl hover:border-yellow-400 transition-all duration-300">
+          <div class="mb-4 text-yellow-400">
+            <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Photography</h3>
+          <div class="w-full bg-gray-700 rounded-full h-2 mt-4">
+            <div class="skill-progress bg-gradient-to-r from-yellow-400 to-yellow-600 h-2 rounded-full" style="width: 75%;"></div>
+          </div>
+        </div>
+        
+        <div class="card-3d bg-gray-800/50 backdrop-blur-xl p-8 rounded-2xl border border-yellow-400/30 text-center shadow-xl hover:border-yellow-400 transition-all duration-300">
+          <div class="mb-4 text-yellow-400">
+            <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Writing</h3>
+          <div class="w-full bg-gray-700 rounded-full h-2 mt-4">
+            <div class="skill-progress bg-gradient-to-r from-yellow-400 to-yellow-600 h-2 rounded-full" style="width: 75%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section id="timeline" class="py-24 px-6 relative">
+    <div class="max-w-4xl mx-auto relative z-10">
+      <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">
+        My <span class="text-yellow-300">Journey</span>
+      </h2>
+      
+      <div class="space-y-12">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="bg-gray-800/50 backdrop-blur-xl p-6 rounded-xl border border-yellow-400/30 ml-4">
+            <div class="text-yellow-400 font-bold mb-2">2024 - Present</div>
+            <h3 class="text-2xl font-bold mb-3">Student at FRCRCE</h3>
+            <p class="text-gray-300">Completing my BTech in Computer Engineering at FRCRCE, Bandra.</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="bg-gray-800/50 backdrop-blur-xl p-6 rounded-xl border border-yellow-400/30 ml-4">
+            <div class="text-yellow-400 font-bold mb-2">2024</div>
+            <h3 class="text-2xl font-bold mb-3">Completed 12th</h3>
+            <p class="text-gray-300">Worked with microprocessors, learnt basics of coding & website development</p>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="bg-gray-800/50 backdrop-blur-xl p-6 rounded-xl border border-yellow-400/30 ml-4">
+            <div class="text-yellow-400 font-bold mb-2">2022</div>
+            <h3 class="text-2xl font-bold mb-3">Completed 10th</h3>
+            <p class="text-gray-300">Completed my secondary education with CBSE board.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-24 px-6 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black relative">
+    <div class="max-w-4xl mx-auto text-center relative z-10">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">Let's Create Something Amazing Together</h2>
+      <p class="text-lg mb-8 opacity-90">Have a project in mind or just want to say hello? I'd love to hear from you!</p>
+      <a href="contact.html" class="bg-black text-yellow-400 px-8 py-4 rounded-full font-bold hover:bg-gray-800 transition inline-block">Get In Touch</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-black/80 backdrop-blur-md border-t border-yellow-400/30 text-center py-8 text-sm text-yellow-500 relative">
+    <div class="container mx-auto px-6 relative z-10">
+      <div class="flex justify-center space-x-6 mb-6">
+        <a href="https://www.instagram.com/jaden_coelho/" class="hover:text-yellow-300 transition">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/jaden-coelho-96982635b/" class="hover:text-yellow-300 transition">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.586 7 2.476v6.759z"/>
+          </svg>
+        </a>
+      </div>
+      <p>© 2025 Jaden Coelho. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const toggleThumb = document.getElementById('toggleThumb');
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-mode');
+      themeToggle.checked = true;
+      toggleThumb.style.transform = 'translateX(24px)';
+    }
+    
+    themeToggle.addEventListener('change', () => {
+      document.body.classList.toggle('light-mode');
+      if (themeToggle.checked) {
+        toggleThumb.style.transform = 'translateX(24px)';
+        localStorage.setItem('theme', 'light');
+      } else {
+        toggleThumb.style.transform = 'translateX(0)';
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    // Cursor Follower
+    const cursorFollower = document.querySelector('.cursor-follower');
+    document.addEventListener('mousemove', (e) => {
+      cursorFollower.style.left = e.clientX + 'px';
+      cursorFollower.style.top = e.clientY + 'px';
+    });
+
+    // Mobile Menu
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Draggable Icon
+    const draggable = document.getElementById('draggableIcon');
+    let isDragging = false;
+    let currentX, currentY, initialX, initialY;
+
+    draggable.addEventListener('mousedown', dragStart);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', dragEnd);
+
+    function dragStart(e) {
+      initialX = e.clientX - draggable.offsetLeft;
+      initialY = e.clientY - draggable.offsetTop;
+      isDragging = true;
+    }
+
+    function drag(e) {
+      if (isDragging) {
+        e.preventDefault();
+        currentX = e.clientX - initialX;
+        currentY = e.clientY - initialY;
+        draggable.style.left = currentX + 'px';
+        draggable.style.top = currentY + 'px';
+      }
+    }
+
+    function dragEnd() {
+      isDragging = false;
+    }
+
+    // Typewriter Effect
+    const typed = new Typed('#typewriter', {
+      strings: ['Technology', 'Design', 'Innovation', 'Creativity'],
+      typeSpeed: 80,
+      backSpeed: 50,
+      backDelay: 2000,
+      loop: true
+    });
+
+    // GSAP Animations
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Animate timeline items
+    gsap.utils.toArray('.timeline-item').forEach((item, index) => {
+      gsap.to(item, {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        delay: index * 0.2,
+        scrollTrigger: {
+          trigger: item,
+          start: 'top 80%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+
+    // Animate cards on scroll
+    gsap.utils.toArray('.card-3d').forEach(card => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        },
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+        ease: 'power3.out'
+      });
+    });
+
+    // Navigation dot highlighting
+    const sections = document.querySelectorAll('section[id]');
+    const navDots = document.querySelectorAll('.nav-dot');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (window.pageYOffset >= sectionTop - 200) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navDots.forEach((dot, index) => {
+        dot.classList.remove('bg-yellow-400');
+        dot.classList.add('bg-gray-500');
+        if (dot.getAttribute('href') === `#${current}`) {
+          dot.classList.add('bg-yellow-400');
+          dot.classList.remove('bg-gray-500');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
