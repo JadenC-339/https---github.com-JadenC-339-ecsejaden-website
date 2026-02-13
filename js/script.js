@@ -373,3 +373,31 @@ if (document.readyState === 'loading') {
 } else {
   contactManager = new ContactManager();
 }
+
+// LIGHT / DARK MODE TOGGLE
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+const toggleThumb = document.getElementById('toggleThumb');
+
+if (themeToggle && toggleThumb) {
+  // Load saved theme
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'light') {
+    body.classList.add('light-mode');
+    themeToggle.checked = true;
+    toggleThumb.style.transform = 'translateX(24px)';
+  }
+
+  // Toggle theme
+  themeToggle.addEventListener('change', () => {
+    if (themeToggle.checked) {
+      body.classList.add('light-mode');
+      localStorage.setItem('theme', 'light');
+      toggleThumb.style.transform = 'translateX(24px)';
+    } else {
+      body.classList.remove('light-mode');
+      localStorage.setItem('theme', 'dark');
+      toggleThumb.style.transform = 'translateX(0)';
+    }
+  });
+}
