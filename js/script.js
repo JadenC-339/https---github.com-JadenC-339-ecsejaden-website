@@ -373,13 +373,13 @@ if (document.readyState === 'loading') {
 } else {
   contactManager = new ContactManager();
 }
+document.addEventListener('DOMContentLoaded', () => {
+  const themeToggle = document.getElementById('themeToggle');
+  const body = document.body;
+  const toggleThumb = document.getElementById('toggleThumb');
 
-// LIGHT / DARK MODE TOGGLE
-const themeToggle = document.getElementById('themeToggle');
-const body = document.body;
-const toggleThumb = document.getElementById('toggleThumb');
+  if (!themeToggle || !toggleThumb) return;
 
-if (themeToggle && toggleThumb) {
   // Load saved theme
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme === 'light') {
@@ -400,4 +400,4 @@ if (themeToggle && toggleThumb) {
       toggleThumb.style.transform = 'translateX(0)';
     }
   });
-}
+});
