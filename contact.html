@@ -738,7 +738,7 @@
       });
     });
     
-    // Enhanced form submission for Formspree
+    // Enhanced form submission for Formspree AND MongoDB
     document.getElementById('formspreeForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       
@@ -748,20 +748,30 @@
       submitBtn.innerHTML = '<svg class="w-6 h-6 inline animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg> Sending...';
       submitBtn.disabled = true;
       
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
       try {
-        const response = await fetch(this.action, {
+        // 1. Send to Formspree
+        const formspreePromise = fetch(this.action, {
           method: 'POST',
-          body: new FormData(this),
-          headers: {
-            'Accept': 'application/json'
-          }
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        // 2. Save to our MongoDB via local API
+        const mongoPromise = fetch('/api/messages', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
         });
         
-        if (response.ok) {
+        const [formspreeRes, mongoRes] = await Promise.all([formspreePromise, mongoPromise]);
+        
+        if (formspreeRes.ok || mongoRes.ok) {
           document.getElementById('formspreeSuccess').classList.remove('hidden');
           this.reset();
           
-          // Hide success message after 5 seconds
           setTimeout(() => {
             document.getElementById('formspreeSuccess').classList.add('hidden');
           }, 5000);
@@ -769,6 +779,7 @@
           throw new Error('Form submission failed');
         }
       } catch (error) {
+        console.error('Submission error:', error);
         alert('Oops! There was a problem sending your message. Please try again.');
       } finally {
         submitBtn.innerHTML = originalText;
